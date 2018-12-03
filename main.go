@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"github.com/QuanLab/go-service/config"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -17,8 +20,11 @@ const (
 )
 
 func main() {
+	fmt.Println(config.Get().MysqlPort)
 	http.HandleFunc(baseContextPath  + "getListId", sayHello)
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	log.Println("Listen and serve at 8080")
+	var err = http.ListenAndServe(":8080", nil)
+	if err != nil {
 		panic(err)
 	}
 }
