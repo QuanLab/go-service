@@ -22,15 +22,21 @@ func getListId(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if user.Role == model.BASIC {
-
+			listUser := model.GetListShopToFollow(user.ID)
+			result, _ := json.Marshal(model.Shop{Data:listUser})
+			w.Write([]byte(result))
 		}
 
 		if user.Role == model.ADVANCE {
-
+			listUser := model.GetListShopToFollow(user.ID)
+			result, _ := json.Marshal(model.Shop{Data:listUser})
+			w.Write([]byte(result))
 		}
 
 		if user.Role == model.PRO {
-
+			listUser := model.GetListShopToFollow(user.ID)
+			result, _ := json.Marshal(model.Shop{Data:listUser})
+			w.Write([]byte(result))
 		}
 
 		if (user.Role == model.ADMIN) {
