@@ -1,43 +1,36 @@
 package mysql
 
 import (
-	"database/sql"
 	"fmt"
+	"log"
 	"github.com/QuanLab/go-service/config"
 	_ "github.com/go-sql-driver/mysql"
-	"log"
+	"database/sql"
 )
-
-type MySQLInfo struct {
-	Username  string
-	Password  string
-	Name      string
-	Hostname  string
-	Port      int
-	Parameter string
-}
 
 var (
 	DB  *sql.DB
-	DB2 *sql.DB
 )
 
+func init() {
+	Connect()
+}
+
 func DataSourceName() string {
-	// Example: root:@tcp(localhost:3306)/test
-	return config.MysqlUserName +
+	return config.Get().MySQL.Username+
 		":" +
-		config.MysqlPassword +
+		config.Get().MySQL.Password +
 		"@tcp(" +
-		config.MysqlHost +
+		config.Get().MySQL.Host +
 		":" +
-		fmt.Sprintf("%d", config.MysqlPort) +
+		fmt.Sprintf("%d", config.Get().MySQL.Port) +
 		")/" +
-		config.DatabaseName + config.Parameter
+		config.Get().MySQL.Database + config.Get().MySQL.Parameter
 }
 
 
 //open connection to MySQL database, it 's self contains pool init
-func Connect(d MySQLInfo) {
+func Connect() {
 	var err error
 	DB, err = sql.Open("mysql", DataSourceName())
 	if err != nil {

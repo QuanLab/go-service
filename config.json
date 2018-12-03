@@ -1,0 +1,16 @@
+{
+    "MySQL": {
+        "Username": "root",
+        "Password": "mothaiba",
+        "Host": "localhost",
+        "Port": 3306,
+        "Database": "web_service",
+        "Parameter": "?parseTime=true"
+    },
+    "Server": {
+        "Port": 8080,
+        "BaseContextPath": "/api/v1/",
+        "PassPhase": "This is a secret pass phase",
+        "Salt" : "Salt for password hasing"
+    }
+}
