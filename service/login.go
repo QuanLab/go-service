@@ -19,17 +19,17 @@ func Login(username string, hashPassword string) model.User {
 		var accessToken = crypt.Encrypt([]byte(accessTokenStr))
 		return model.User{Username: user.Username, FullName:user.FullName, AccessToken: accessToken}
 	}
-	return model.User{ID:-1};
+	return model.User{ID:int64(-1)};
 }
 
 func ValidateToken(accessToken string) model.User {
 	tokenInfo, err := crypt.Decrypt(accessToken)
 	if err != nil {
-		return model.User{ID: -1}
+		return model.User{ID: int64(-1)}
 	}
 	var splits []string = strings.Split(tokenInfo, "|")
 	if len(splits) >= 3 {
-		id, _ := strconv.Atoi(splits[0])
+		id, _ := strconv.ParseInt(splits[0], 10, 64)
 		var username = splits[1]
 		var role = splits[2]
 		return model.User{ID: id, Username:username, Role:role}

@@ -12,5 +12,12 @@
         "BaseContextPath": "/api/v1/",
         "PassPhase": "This is a secret pass phase",
         "Salt" : "Salt for password hasing"
+    },
+    "MailServer": {
+        "Domain": "http://localhost:8080",
+        "Server": "smtp.gmail.com",
+        "Port": 587,
+        "Email": "tuansinh2050@gmail.com",
+        "Password": "********"
     }
 }

@@ -9,7 +9,7 @@ type Shop struct {
 	Data []string `json:"data,omitempty"`
 }
 
-func GetListShopToFollow(userId int) []string {
+func GetListShopToFollow(userId int64) []string {
 	var query = "SELECT SHOP_ID FROM USER_SHOP WHERE ID NOT IN ( " +
 		"SELECT DISTINCT A.SHOP_ID FROM FOLLOW AS A " +
 		"LEFT JOIN (" +

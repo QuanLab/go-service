@@ -1,8 +1,9 @@
 package config
 
 type Config struct {
-	MySQL  MySQL  `json:"MySQL,omitempty"`
-	Server Server `json:"Server,omitempty"`
+	MySQL      MySQL      `json:"MySQL,omitempty"`
+	Server     Server     `json:"Server,omitempty"`
+	MailServer MailServer `json:"Server,omitempty"`
 }
 
 type MySQL struct {
@@ -19,4 +20,12 @@ type Server struct {
 	BaseContextPath  string `json:"BaseContextPath,omitempty"`
 	PrivatePassPhase string `json:"PrivatePassPhase,omitempty"`
 	Salt             string `json:"Salt,omitempty"`
+}
+
+type MailServer struct {
+	Domain   string `json:"Domain,omitempty"`
+	Server   string `json:"Server,omitempty"`
+	Port     int    `json:"Port,omitempty"`
+	Email    string `json:"Email,omitempty"`
+	Password string `json:"Password,omitempty"`
 }

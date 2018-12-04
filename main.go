@@ -4,73 +4,16 @@ import (
 	"log"
 	"net/http"
 	"fmt"
-	"encoding/json"
-
 	"github.com/QuanLab/go-service/config"
-	"github.com/QuanLab/go-service/service"
-	"github.com/QuanLab/go-service/model"
+	"github.com/QuanLab/go-service/route"
 )
-
-func getListId(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-	case http.MethodGet:
-		var accessToken = r.Header.Get("access_token")
-		user := service.ValidateToken(accessToken)
-
-		if user.Role == model.GUEST {
-			w.Write([]byte("{'message' : 'Current user is not authenticated.'}"))
-		}
-
-		if user.Role == model.BASIC {
-			listUser := model.GetListShopToFollow(user.ID)
-			result, _ := json.Marshal(model.Shop{Data:listUser})
-			w.Write([]byte(result))
-		}
-
-		if user.Role == model.ADVANCE {
-			listUser := model.GetListShopToFollow(user.ID)
-			result, _ := json.Marshal(model.Shop{Data:listUser})
-			w.Write([]byte(result))
-		}
-
-		if user.Role == model.PRO {
-			listUser := model.GetListShopToFollow(user.ID)
-			result, _ := json.Marshal(model.Shop{Data:listUser})
-			w.Write([]byte(result))
-		}
-
-		if (user.Role == model.ADMIN) {
-			result, err := json.Marshal(user)
-			if err != nil {
-				log.Panic(err)
-			}
-			w.Write(result)
-		}
-	default:
-		w.Write([]byte("{'message', 'Method is not allowed here'}"))
-	}
-}
-
-func login(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-	case http.MethodPost:
-		username := r.FormValue("username")
-		password := r.FormValue("password")
-		user := service.Login(username, password)
-		result, err := json.Marshal(user)
-		if err != nil {
-			log.Fatal("{'error' : 100, 'message' : 'Fail to login'}")
-		}
-		w.Write([]byte(result))
-	default:
-		w.Write([]byte("{'message', 'Method is not allowed here'}"))
-	}
-}
 
 func main() {
 	var conf = config.Get().Server
-	http.HandleFunc(conf.BaseContextPath+"getListId", getListId)
-	http.HandleFunc(conf.BaseContextPath+"login", login)
+	http.HandleFunc(conf.BaseContextPath+"register", route.Register)
+	http.HandleFunc(conf.BaseContextPath+"verify", route.VerifyRegister)
+	http.HandleFunc(conf.BaseContextPath+"login", route.Login)
+	http.HandleFunc(conf.BaseContextPath+"getListId", route.GetListId)
 	log.Printf("Listen and serve at %d", conf.Port)
 	var err = http.ListenAndServe(fmt.Sprintf(":%d", conf.Port), nil)
 	if err != nil {
