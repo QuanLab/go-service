@@ -9,6 +9,7 @@ import (
 	"io"
 	"github.com/QuanLab/go-service/config"
 	"encoding/base64"
+	"log"
 )
 
 var (
@@ -40,7 +41,10 @@ func Encrypt(data []byte) string {
 }
 
 func Decrypt(cypherText string) (string, error) {
-	data,_ := base64.StdEncoding.DecodeString(cypherText)
+	data, err := base64.StdEncoding.DecodeString(cypherText)
+	if err != nil {
+		log.Println("Error decode string base64")
+	}
 	key := []byte(CreateHash(passphrase))
 	block, err := aes.NewCipher(key)
 	if err != nil {

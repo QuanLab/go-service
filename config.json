@@ -17,7 +17,8 @@
         "Domain": "http://localhost:8080",
         "Server": "smtp.gmail.com",
         "Port": 587,
-        "Email": "tuansinh2050@gmail.com",
-        "Password": "********"
+        "Email": "edgetechvietnam@gmail.com",
+        "Password": "*************",
+        "SenderName": "Edge Tech Vietnam"
     }
 }

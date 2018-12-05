@@ -23,9 +23,10 @@ type Server struct {
 }
 
 type MailServer struct {
-	Domain   string `json:"Domain,omitempty"`
-	Server   string `json:"Server,omitempty"`
-	Port     int    `json:"Port,omitempty"`
-	Email    string `json:"Email,omitempty"`
-	Password string `json:"Password,omitempty"`
+	Domain     string `json:"Domain,omitempty"`
+	Server     string `json:"Server,omitempty"`
+	Port       int    `json:"Port,omitempty"`
+	Email      string `json:"Email,omitempty"`
+	Password   string `json:"Password,omitempty"`
+	SenderName string `json:"SenderName,omitempty"`
 }

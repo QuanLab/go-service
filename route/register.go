@@ -54,7 +54,6 @@ func VerifyRegister(w http.ResponseWriter, r *http.Request)  {
 			log.Printf("Active user with id %d ", id)
 			model.UpdateActiveStatus(model.User{ID:id})
 		}
-
 	}
 	w.Write([]byte("{'message' : 'Your account is activated. You can login right now.'}"))
 }
@@ -67,7 +66,7 @@ func sendVerificationEmail(user model.User) {
 
 	var info = fmt.Sprintf("%d|%d", user.ID, time.Now().UnixNano())
 	var verificationToken = crypt.Encrypt([]byte(info))
-	request.Send("templates/email.html", map[string]string{
+	request.Send("templates/email.html", map[string]string {
 		"username":user.FullName,
 		"url" : config.Get().MailServer.Domain + config.Get().Server.BaseContextPath + "verify?token=" + verificationToken,
 	})

@@ -42,9 +42,10 @@ func (r *Request) parseTemplate(fileName string, data interface{}) error {
 
 func (r *Request) sendMail() bool {
 	var conf = config.Get().MailServer
-	body := "To: " + r.to[0] + "\r\nSubject: " + r.subject + "\r\n" + MIME + "\r\n" + r.body
+	body := "From: " + conf.SenderName + "\r\n" +
+			"To: " + r.to[0] + "\r\nSubject: " + r.subject + "\r\n" + MIME + "\r\n" + r.body
 	SMTP := fmt.Sprintf("%s:%d", conf.Server, conf.Port)
-	if err := smtp.SendMail(SMTP, smtp.PlainAuth("Tu Anh", conf.Email, conf.Password, conf.Server), conf.Email, r.to, []byte(body)); err != nil {
+	if err := smtp.SendMail(SMTP, smtp.PlainAuth("", conf.Email, conf.Password, conf.Server), conf.Email, r.to, []byte(body)); err != nil {
 		return false
 	}
 	return true
